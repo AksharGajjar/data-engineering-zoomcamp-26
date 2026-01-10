@@ -1,7 +1,7 @@
 [project]
-name = "pipeline"
+name = "data-engineering-zoomcamp-26"
 version = "0.1.0"
-description = "Add your description here"
+description = "Data Engineering Zoomcamp"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
