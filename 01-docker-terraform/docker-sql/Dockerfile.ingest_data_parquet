@@ -1,6 +1,9 @@
 # Base Docker Image
 FROM python:3.13.11-slim
 
+# install wget to download files directly
+RUN apt-get update && apt-get install -y wget
+
 # Copy uv binary from official uv image (multi-stage build pattern)
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 
@@ -17,7 +20,7 @@ COPY pyproject.toml uv.lock .python-version ./
 RUN uv sync --locked
 
 # Copy relevant files
-COPY 01-docker-terraform/docker-sql/ingest_data.py .
+COPY 01-docker-terraform/docker-sql/ingest_data_parquet.py .
 
 # Execute script on container run
-ENTRYPOINT ["python","ingest_data.py"]
+ENTRYPOINT ["python","ingest_data_parquet.py"]

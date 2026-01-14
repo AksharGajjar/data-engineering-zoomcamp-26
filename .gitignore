@@ -53,6 +53,9 @@ terraform.rc
 # Uncomment the line below if you want to ignore planout files.
 planout
 
+# google-cloud-sdk
+google-cloud-sdk/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

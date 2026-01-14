@@ -5,12 +5,14 @@ This directory contains resources for managing PostgreSQL and PgAdmin services u
 ## Contents
 
 - **Dockerfiles**:
-  - `Dockerfile.ingest_data`: Builds a Docker image for ingesting data using Python.
+  - `Dockerfile.ingest_data_csv`: Builds a Docker image for ingesting CSV data using Python.
+  - `Dockerfile.ingest_data_parquet`: Builds a Docker image for ingesting Parquet data using Python.
   - `Dockerfile.ingest_zones_data`: Builds a Docker image for ingesting zone data using Python.
 - **docker-compose.yaml**:
   - Defines services for PostgreSQL (`pgdatabase`) and PgAdmin (`pgadmin`) and connects them to the `data_engineering_network`.
 - **Python Scripts**:
-  - `ingest_data.py`: Script for ingesting data.
+  - `ingest_data_csv.py`: Script for ingesting CSV data.
+  - `ingest_data_parquet.py`: Script for ingesting Parquet data.
   - `ingest_zones_data.py`: Script for ingesting zone data.
 
 ## Important Notes
@@ -29,8 +31,11 @@ This directory contains resources for managing PostgreSQL and PgAdmin services u
 Run the following commands from the root directory:
 
 ```bash
-# Build the ingest_data image
-docker build -f 01-docker-terraform/docker-sql/Dockerfile.ingest_data -t ingest_data:v001 .
+# Build the ingest_data_csv image
+docker build -f 01-docker-terraform/docker-sql/Dockerfile.ingest_data_csv -t ingest_data_csv:v001 .
+
+# Build the ingest_data_parquet image
+docker build -f 01-docker-terraform/docker-sql/Dockerfile.ingest_data_parquet -t ingest_data_parquet:v001 .
 
 # Build the ingest_zones_data image
 docker build -f 01-docker-terraform/docker-sql/Dockerfile.ingest_zones_data -t ingest_zones_data:v001 .
@@ -47,8 +52,11 @@ docker-compose -f 01-docker-terraform/docker-sql/docker-compose.yaml up -d
 Run the following commands to test the Docker images:
 
 ```bash
-# Test the ingest_data image
-docker run --rm --network=data_engineering_network ingest_data:v001
+# Test the ingest_data_csv image
+docker run --rm --network=data_engineering_network ingest_data_csv:v001
+
+# Test the ingest_data_parquet image
+docker run --rm --network=data_engineering_network ingest_data_parquet:v001
 
 # Test the ingest_zones_data image
 docker run --rm --network=data_engineering_network ingest_zones_data:v001
@@ -61,13 +69,15 @@ Run the following command to stop the services:
 docker-compose -f 01-docker-terraform/docker-sql/docker-compose.yaml down
 ```
 
-## Troubleshooting
+### Troubleshooting
+Ensure the data_engineering_network exists and the containers are attached to it:
 
-- Ensure the `data_engineering_network` exists and the containers are attached to it:
-  ```bash
-  docker network inspect data_engineering_network
-  ```
-- If the network is missing, recreate it:
-  ```bash
-  docker network create data_engineering_network
-  ```
+```bash
+docker network inspect data_engineering_network
+```
+
+If the network is missing, recreate it:
+
+```bash
+docker network create data_engineering_network
+```
