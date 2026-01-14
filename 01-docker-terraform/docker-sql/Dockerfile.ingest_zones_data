@@ -17,7 +17,7 @@ COPY "pyproject.toml" "uv.lock" ".python-version" ./
 RUN uv sync --locked
 
 # Copy relevant files
-COPY ingest_data.py .
+COPY 01-docker-terraform/docker-sql/ingest_zones_data.py .
 
 # Execute script on container run
-ENTRYPOINT ["python","ingest_data.py"]
+ENTRYPOINT ["python", "ingest_zones_data.py"]

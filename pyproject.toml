@@ -1,7 +1,7 @@
 [project]
-name = "pipeline"
+name = "data-engineering-zoomcamp-26"
 version = "0.1.0"
-description = "Add your description here"
+description = "Data Engineering Zoomcamp"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -10,6 +10,7 @@ dependencies = [
     "pyarrow>=22.0.0",
     "sqlalchemy>=2.0.45",
     "tqdm>=4.67.1",
+    "wget>=3.2",
 ]
 
 [dependency-groups]
